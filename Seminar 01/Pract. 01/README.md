@@ -108,7 +108,7 @@ bool find(int target, int maxCycles) {
 ```c++
 void print(const int* arr, int n)
 for(int i = 0; i < n; i++) {
-    for(int j = n - i + 1; j < n; j++) {
+    for(int j = n + i - 5; j < n; j++) {
         std::cout<<arr[i]<<std::endl;
     }
 }
