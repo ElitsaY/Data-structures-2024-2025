@@ -16,3 +16,6 @@
 [Printers](https://www.hackerrank.com/contests/sda-homework-3/challenges/challenge-2674/problem)
 [Leetcode-69](https://leetcode.com/problems/sqrtx/)
 [Leetcode-367](https://leetcode.com/problems/valid-perfect-square/)
+
+
+Задачи в час:   https://leetcode.com/problem-list/awvsu9dt/
