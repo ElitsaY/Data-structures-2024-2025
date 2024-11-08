@@ -1,3 +1,22 @@
+#include <iostream>
+#include "Queue.h"
+#include <string>
+
+
+struct Player {
+public:
+    size_t id;
+    size_t saveCards;
+
+    Player()
+        : saveCards(0)
+    {}
+
+    Player(size_t id)
+        :id(id), saveCards(0)
+    {}
+};
+
 unsigned int kittens(const std::string cards, size_t players) {
 
     Queue<Player> allPlayer;
