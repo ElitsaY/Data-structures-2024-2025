@@ -1,0 +1,46 @@
+#include <iostream>
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    if (!list1) return list2; // Ако първият списък е празен, връщаме втория
+    if (!list2) return list1; // Ако вторият списък е празен, връщаме първия
+
+    // Избираме първия елемент на новия списък и настройваме началния указател
+    ListNode* head = nullptr;
+    if (list1->val < list2->val) {
+        head = list1;
+        list1 = list1->next;
+    } else {
+        head = list2;
+        list2 = list2->next;
+    }
+
+    // Указател към текущия възел в новия списък
+    ListNode* current = head;
+
+    // Основен цикъл за сливане на останалите възли
+    while (list1 && list2) {
+        if (list1->val < list2->val) {
+            current->next = list1;   // Добавяме възела от list1
+            list1 = list1->next;     // Преместваме list1 напред
+        } else {
+            current->next = list2;   // Добавяме възела от list2
+            list2 = list2->next;     // Преместваме list2 напред
+        }
+        current = current->next;     // Преместваме текущия указател напред
+    }
+
+    // Добавяме останалите възли от непразния списък
+    if (list1) {
+        current->next = list1;
+    } else {
+        current->next = list2;
+    }
+
+    return head; // Връщаме началния възел на новия списък
+}
