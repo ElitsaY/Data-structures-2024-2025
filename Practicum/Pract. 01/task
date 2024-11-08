@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+    const int MAX_PLAYERS = 100001;
+    vector<int> losses(MAX_PLAYERS, -1); // -1 означава, че играчът не е участвал
+    
+    for (int i = 0; i < matches.size(); i++) {
+        int winner = matches[i][0];
+        int loser = matches[i][1];
+        
+        if (losses[winner] == -1) {
+            losses[winner] = 0; // Победителят няма загуби (инициализираме)
+        }
+        if (losses[loser] == -1) {
+            losses[loser] = 1; // Загубилият има една загуба (инициализираме)
+        } else {
+            losses[loser]++; // Увеличаваме загубите на загубилия
+        }
+    }
+    
+    vector<int> zeroLosses;
+    vector<int> oneLoss;
+    
+    for (int i = 1; i < MAX_PLAYERS; i++) {
+        if (losses[i] == 0) {
+            zeroLosses.push_back(i); // Играчите без загуби
+        } else if (losses[i] == 1) {
+            oneLoss.push_back(i); // Играчите с една загуба
+        }
+    }
+    
+    return {zeroLosses, oneLoss};
+}
