@@ -1,0 +1,53 @@
+unsigned int kittens(const std::string cards, size_t players) {
+
+    Queue<Player> allPlayer;
+    Queue<char> deck;
+   // std::string::const_iterator ch = cards.begin();
+    
+    size_t num = 1;
+
+    for(char ch: cards)
+    {
+        deck.push(ch);
+    }
+
+    while (players--)
+    {
+        allPlayer.push(Player(num++));
+    }
+
+    while (true)
+    {
+        Player current = allPlayer.peek();
+        allPlayer.pop();
+        if (allPlayer.empty())
+        {
+            return current.id;
+        }
+        if (deck.empty()) {
+            
+            return current.id;
+        }
+        char currCard = deck.peek();
+        deck.pop();
+
+        if (currCard == 'B' && current.saveCards == 0)
+        {
+            continue;
+        }
+        else if (currCard == 'B' && current.saveCards)
+        {
+            deck.push(currCard);
+            current.saveCards--;
+        }
+        else if (currCard == 'S')
+        {
+            current.saveCards++;
+        }
+
+        allPlayer.push(current);
+    }
+        
+
+    return 0;
+}
