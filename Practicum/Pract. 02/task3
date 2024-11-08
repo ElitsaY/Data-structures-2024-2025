@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>  // За използване на сортиране
+
+std::vector<int> intersection(std::vector<int>& nums1, std::vector<int>& nums2) {
+    // Сортираме двата масива
+    std::sort(nums1.begin(), nums1.end());
+    std::sort(nums2.begin(), nums2.end());
+
+    std::vector<int> result;  // Вектор за съхраняване на резултата
+    int i = 0, j = 0;
+    int lastAdded = -1;  // Променлива за последно добавен елемент, инициализирана с невъзможна стойност
+    
+    // Изнасяме размерите на двата масива в променливи
+    int size1 = nums1.size();
+    int size2 = nums2.size();
+
+    // Докато не сме стигнали края на нито един от масивите
+    while (i < size1 && j < size2) {
+        if (nums1[i] == nums2[j]) {
+            // Проверяваме дали елементът вече е добавен (сравняваме с lastAdded)
+            if (lastAdded != nums1[i]) {
+                result.push_back(nums1[i]);  // Добавяме в резултата уникален елемент
+                lastAdded = nums1[i];  // Обновяваме lastAdded с текущия елемент
+            }
+            i++;  // Преминаваме към следващия елемент в nums1
+            j++;  // Преминаваме към следващия елемент в nums2
+        } else if (nums1[i] < nums2[j]) {
+            i++;  // Преминаваме към следващия елемент в nums1
+        } else {
+            j++;  // Преминаваме към следващия елемент в nums2
+        }
+    }
+
+    return result;  // Връщаме резултатния вектор
+}
+
+int main() {
+    std::vector<int> nums1 = {1, 2, 2, 1};
+    std::vector<int> nums2 = {2, 2};
+
+    std::vector<int> res = intersection(nums1, nums2);
+
+    // Извеждаме резултата на екрана
+    for (int num : res) {
+        std::cout << num << " ";
+    }
+
+    return 0;
+}
