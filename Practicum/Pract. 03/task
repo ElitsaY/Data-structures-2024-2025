@@ -1,0 +1,50 @@
+### Вариант 1
+#include <vector>
+#include <iostream>
+
+void sortColors(std::vector<int>& nums) {
+    int low = 0, mid = 0, high = nums.size() - 1;
+    
+    // Алгоритъмът работи докато mid не премине high
+    while (mid <= high) {
+        if (nums[mid] == 0) {
+            // Ако текущият елемент е 0, го разменяме с този на позиция low
+            std::swap(nums[low], nums[mid]);
+            low++;  // Преместваме low напред
+            mid++;  // Преместваме mid напред, защото знаем, че след размяната mid вече е обработен
+        } else if (nums[mid] == 1) {
+            // Ако текущият елемент е 1, просто преминаваме на следващия
+            mid++;
+        } else {
+            // Ако текущият елемент е 2, го разменяме с този на позиция high
+            std::swap(nums[high], nums[mid]);
+            high--;  // Намаляваме high, но не увеличаваме mid, защото не знаем какво е дошло от позиция high
+        }
+    }
+}
+
+int main() {
+    std::vector<int> nums = {2, 0, 2, 1, 1, 0};
+    sortColors(nums);
+
+    // Извеждаме сортирания масив
+    for (int num : nums) {
+        std::cout << num << " ";
+    }
+    return 0;
+}
+--------------------------------------------------------------------------------------------------------------------------
+### Вариант 2
+
+ auto it = std::partition(nums.begin(), nums.end(), [](int num) { return num == 0; });
+    
+    // След това преместваме всички 1-ци след 0-ците
+    std::partition(it, nums.end(), [](int num) { return num == 1; });
+
+
+
+
+
+
+
+
