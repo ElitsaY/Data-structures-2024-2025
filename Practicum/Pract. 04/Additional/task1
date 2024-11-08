@@ -1,0 +1,42 @@
+Вариант 1
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;  // Указател към предишния възел, който започва като nullptr
+    ListNode* current = head;   // Указател към текущия възел, който започва от началото на списъка
+
+    while (current != nullptr) { // Цикълът продължава, докато стигнем края на списъка
+        ListNode* nextNode = current->next; // Запазваме следващия възел временно
+        current->next = prev;               // Пренасочваме текущия възел да сочи към предишния възел
+        prev = current;                     // Преместваме предишния указател напред (към текущия възел)
+        current = nextNode;                 // Преместваме текущия указател напред (към следващия възел)
+    }
+
+    return prev; // Връщаме указателя към новата глава на списъка (бившия последен възел)
+}
+
+--------------------------------------------------------------
+Вариант 2
+
+ListNode* reverseListRecursive(ListNode* head) {
+    // Базов случай: ако списъкът е празен или има само един елемент, няма какво да обръщаме
+    if (head == nullptr || head->next == nullptr) {
+        return head;
+    }
+    
+    // Рекурсивно извикване към следващия възел, докато достигнем края
+    ListNode* newHead = reverseListRecursive(head->next);
+    
+    // Обръщаме връзката, като следващият възел сочи към текущия
+    head->next->next = head;
+    
+    // Изключваме текущия възел от обърнатата част на списъка
+    head->next = nullptr;
+    
+    return newHead; // Връщаме новата глава на обърнатия списък
+}
