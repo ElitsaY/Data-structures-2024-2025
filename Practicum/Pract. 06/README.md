@@ -12,3 +12,28 @@
 
 ## Задачи
 [Задачи за решаване от студенти](https://leetcode.com/problem-list/aw7zfjz1/)
+
+# Зад 113
+```c++
+void helper (TreeNode* root, int targetSum, vector<vector<int>>& res, vector<int>& path) {
+      if(!root) {
+          return;
+      }  
+      targetSum -= root->val;
+        path.push_back(root->val);
+        if(targetSum == 0 && !root->left && !root->right) {
+            res.push_back(path);
+        }
+        
+        helper(root->left, targetSum, res, path);
+        helper(root->right, targetSum, res, path);
+        path.pop_back();
+    }
+    
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>> answer;
+        vector<int>path;
+        helper(root, targetSum, answer, path);
+        return answer;
+    }
+```
