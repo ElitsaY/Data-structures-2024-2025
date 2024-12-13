@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <tuple>
+
+using namespace std;
+
+int findScore(vector<int>& nums) {
+    // Създаваме приоритетна опашка за подреждане на елементите по стойност и индекс
+    priority_queue<pair<int, int>,
+ vector<pair<int, int>>,
+ greater<pair<int,int>>> minHeap;
+    int n = nums.size();
+    vector<bool> marked(n, false); // Масив за отбелязване на маркирани елементи
+    long long score = 0; // Резултат
+
+    // Поставяме всички елементи в приоритетната опашка
+    for (int i = 0; i < n; i++) {
+        minHeap.push({nums[i], i});
+    }
+
+    // Докато опашката не е празна
+    while (!minHeap.empty()) {
+        auto [value, index] = minHeap.top();
+        minHeap.pop();
+
+        // Ако елементът вече е маркиран, го пропускаме
+        if (marked[index]) continue;
+
+        // Добавяме стойността към резултата
+        score += value;
+
+        // Маркираме текущия елемент и съседите му
+        marked[index] = true;
+        if (index > 0) marked[index - 1] = true;
+        if (index < n - 1) marked[index + 1] = true;
+    }
+
+    return score;
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5};
+    cout << "Score: " << findScore(nums) << endl;
+    return 0;
+}
