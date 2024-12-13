@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int longestWPI(vector<int>& hours) {
+    unordered_map<int, int> balanceIndex; - запазва най-ранния индекс, на който даден
+баланс се е появил
+    int balance = 0 - текущ баланс , maxLength = 0; - дължината на най-дългия валиден 
+интервал
+
+    // Итерираме през дните
+    for (int i = 0; i < hours.size(); ++i) {
+        // Трансформираме деня в +1 или -1
+-ако балансът се увеличава ако часовете са повече от 8 за деня
+        balance += (hours[i] > 8 ? 1 : -1);
+
+        // Ако балансът е положителен, целият интервал е валиден.
+- ако балансът стане негативен или нула , означава,че не целият интервал е валиден, но съществува подинтервал които е и го търсим
+        if (balance > 0) {
+            maxLength = i + 1;
+        } else {
+            // Търсим първия индекс, където балансът е balance - 1
+            if (balanceIndex.find(balance - 1) != balanceIndex.end()) {
+                maxLength = max(maxLength, i - balanceIndex[balance - 1]);
+            } - ако balance -1 е записан в balanceIndex означава , че интервалът след този баланс е валиден. и се изисква дължината по-горе.
+Защо баланс - 1= ако баланс - 1 е записан на индекс j,това значи, че от индекс j+1 до текущия i  балансът е нараснал с 1, и е валиден подинтервал;
+            // Съхраняваме първата поява на текущия баланс, ако не е добавен веч
+            if (balanceIndex.find(balance) == balanceIndex.end()) {
+                balanceIndex[balance] = i;
+            }
+        }
+    }
+
+    return maxLength;
+}
+
+int main() {
+    vector<int> hours = {9, 9, 6, 0, 6, 6, 9};
+    cout << "Longest WPI: " << longestWPI(hours) << endl;
+    return 0;
+}
+
