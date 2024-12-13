@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+
+std::vector<int> topKFrequent(const std::vector<int>& nums, int k) {
+ 
+    std::map<int, int> frequencyMap;
+    for (int num : nums) {
+        frequencyMap[num]++;
+    }
+
+   
+    std::vector<int> elements;
+    for (const auto& [num, freq] : frequencyMap) {
+        elements.push_back(num);
+    }
+
+    
+    std::sort(elements.begin(), elements.end(), [&frequencyMap](int a, int b) {
+        return frequencyMap[a] > frequencyMap[b]; 
+    });
+
+    
+    elements.resize(k);
+    return elements;
+}
+
+
+}
