@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int maxProduct(vector<int>& nums) {
+    // Приоритетна опашка за най-големите елементи
+    priority_queue<int> maxHeap;
+
+    // Добавяме всички числа в опашката
+    for (int num : nums) {
+        maxHeap.push(num);
+    }
+
+    // Вземаме двата най-големи елемента
+    int firstMax = maxHeap.top(); maxHeap.pop();
+    int secondMax = maxHeap.top(); maxHeap.pop();
+
+    // Връщаме (firstMax - 1) * (secondMax - 1)
+    return (firstMax - 1) * (secondMax - 1);
+}
+
+int main() {
+    vector<int> nums = {3, 4, 5, 2};
+    cout << "Maximum Product: " << maxProduct(nums) << endl;
+    return 0;
+}
