@@ -1,4 +1,4 @@
- ListNode* modifiedList(vector<int>& nums, ListNode* head){
+ ListNode* modifiedList(vector<int>& nums, ListNode* head){        //https://leetcode.com/problems/delete-nodes-from-linked-list-present-in-array/description/
     unordered_map<int,int> hashMap;
        for(auto i: nums) {
         hashMap[i]++;
