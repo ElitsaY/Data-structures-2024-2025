@@ -11,20 +11,19 @@ int main() {
 
 	std::unordered_map<int, std::unordered_set<int>> graph;
 
-	// Ако графът е насочен
+	// If the graph is directed
 	for (const auto& elem : edges) {
 		graph[elem.first].insert(elem.second);
 	}
 
 	std::cout << graph.size();
-	// Ако графът е ненасочен
+	// If the graph is undirected
 	//for (const auto& elem : edges) {
 	//	graph[elem.first].insert(elem.second);
 	//	graph[elem.second].insert(elem.first);
 	//}
 
 
-	// Обхождане на графи - в дъблочина
 	void dfs(std::unordered_map<int, std::unordered_set<int>>& graph, std::vector<bool>& visited, int state) {
 		visited[state] = true;
 
@@ -44,10 +43,10 @@ int main() {
 
 		visited[start] = true;
 		q.push(start);
-		int counter = 0; // брои броя на нивата, тоест най-краткия път при непретеглен граф
+		int counter = 0; // LevelCounter
 		while (!q.empty()) {
 
-			int levelSize = q.size();
+			int levelSize = q.size(); // Number of nodes at a certain level
 			while (levelSize) {
 
 				int curr = q.front();
@@ -67,7 +66,7 @@ int main() {
 		}
 	}
 
-	// топологично сортиране
+	// Topological sort
 
 	void dfs(int node, const std::vector<std::vector<int>>& graph, std::vector<bool>& visited, std::stack<int>& sorted) {
 		visited[node] = true;
@@ -86,7 +85,7 @@ int main() {
 		std::vector<bool> visited(graph.size(), false);
 		std::stack<int> sorted;
 
-		// Това го правим, за да се сортират различните компоненти на свързаност.
+		// Topological sort every connected component
 		for (int i = 0; i < vertices; ++i) {
 			if (!visited[i]) {
 				dfs(i, graph, visited, sorted);
