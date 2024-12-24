@@ -5,8 +5,6 @@
 
 int main() {
 
-	// Строене на граф от списък с ребра
-
 	std::vector<std::pair<int, int>> edges{ {1,2}, {1,4}, {2,3}, {2,4}, {3,4} };
 
 	std::unordered_map<int, std::unordered_set<int>> graph;
