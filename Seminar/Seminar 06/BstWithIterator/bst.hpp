@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <functional>
+#include <algorithm>
 #include <stack>
 #include <vector>
 
@@ -13,7 +14,15 @@ private:
         T data;
         Node* left;
         Node* right;
+        size_t subTreeSize = 1;
         Node(const T& data, Node* left = nullptr, Node* right = nullptr) : data(data), left(left), right(right) {}
+    
+        static size_t getSubTreeSize(const Node* node) const {
+            if (!node) {
+                return 0;
+            }
+            return node->subTreeSize;
+        }
     };
 
     Node* root = nullptr;
@@ -37,6 +46,19 @@ public:
 
     size_t getSize() const;
     bool isEmpty() const;
+
+    const Node& getNodeByIndex(const Node* current, size_t idx) {
+        size_t leftSubTreeSize = Node::getSubTreeSize(current->left);
+        if (leftSubTreeSize == idx) {
+            return current;
+        }
+        else if (leftSubTreeSize > idx) {
+            return getNodeByIndex(current->left, idx);
+        }
+        else {
+            return getNodeByIndex(current->right, idx - leftSubTreeSize - 1);
+        }
+    }
 
     class ForwardIterator {
     private:
@@ -100,8 +122,11 @@ bool Bst<T, Compare>::insert(const T& data)
 {
     Node** current = &root;
 
+    std::vector<Node*> history;
+
     while (*current)
     {
+        history.push_back(current);
         if (comp(data, (*current)->data))
             current = &(*current)->left;
         else if (comp((*current)->data, data))
@@ -110,6 +135,7 @@ bool Bst<T, Compare>::insert(const T& data)
             return false; // Data already exists
     }
     *current = new Node(data);
+    std::for_each(history.begin(), history.end(), [](Node* current) {current->subTreeSize++;})
     size++;
     return true;
 }
