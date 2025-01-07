@@ -1,0 +1,27 @@
+vector<int> findIntersectionValues(vector<int>& nums1, vector<int>& nums2) {    //https://leetcode.com/problems/find-common-elements-between-two-arrays/description/
+        unordered_map<int,int> countMap1,countMap2;
+      
+
+        for(int num: nums1){
+           countMap1[num]++;
+           
+        }
+        for(int num: nums2){
+            countMap2[num]++;
+        }
+        int count1 = 0,count2 = 0;
+        for(int num: nums1){
+            if(countMap2.count(num)){
+                count1++;
+               
+            }
+        }
+        
+        for(int num: nums2){
+        if(countMap1.count(num) ){
+        count2++;
+      
+        }
+        }
+        return {count1,count2};
+    }
