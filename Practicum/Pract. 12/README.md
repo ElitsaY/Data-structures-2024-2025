@@ -3,3 +3,5 @@
 
 ## Задача [743](https://leetcode.com/problems/network-delay-time/);
 
+## Домашно - https://leetcode.com/problem-list/2herqsjv/
+
